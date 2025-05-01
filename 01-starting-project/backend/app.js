@@ -21,6 +21,10 @@ app.use((req, res, next) => {
 app.get("/places", async (req, res) => {
   await new Promise((resolve) => setTimeout(resolve, 3000));
 
+  // simulation of backend having issues
+  // return res.status(500).json(); // returns error response
+
+
   const fileContent = await fs.readFile("./data/places.json");
 
   const placesData = JSON.parse(fileContent);
@@ -37,6 +41,7 @@ app.get("/user-places", async (req, res) => {
   res.status(200).json({ places });
 });
 
+// wants a 'put' request, and expects to get the placeID of the place that should be stored for the USER in the request body
 app.put("/user-places", async (req, res) => {
   const placeId = req.body.placeId;
 
